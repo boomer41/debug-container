@@ -1,17 +1,18 @@
 FROM debian:12 AS base
 
-RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
+RUN --mount=type=tmpfs,target=/var/lib/apt/lists \
     --mount=type=tmpfs,target=/var/cache \
     --mount=type=tmpfs,target=/var/log \
-    apt-get -qq update && \
-    apt-get -qq --yes dist-upgrade
+    apt-get update && \
+    apt-get dist-upgrade --yes
 
 
 FROM base AS build-c
 
-RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
+RUN --mount=type=tmpfs,target=/var/lib/apt/lists \
     --mount=type=tmpfs,target=/var/cache \
     --mount=type=tmpfs,target=/var/log \
+    apt-get update && \
     apt-get install --yes \
         build-essential \
         cmake
@@ -48,9 +49,10 @@ FROM base AS final
 #   - socat
 #   - tcpdump
 
-RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
+RUN --mount=type=tmpfs,target=/var/lib/apt/lists \
     --mount=type=tmpfs,target=/var/cache \
     --mount=type=tmpfs,target=/var/log \
+    apt-get update && \
     apt-get install --yes \
         bind9-dnsutils \
         ca-certificates \
