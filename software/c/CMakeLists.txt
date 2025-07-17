@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.13)
+project(c-tools)
+
+set(CMAKE_C_STANDARD 17)
+set(CMAKE_CXX_STANDARD 17)
+
+add_executable(get-root get-root.c)
+install(TARGETS get-root RUNTIME DESTINATION usr/bin PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE SETUID)

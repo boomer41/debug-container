@@ -1,0 +1,47 @@
+#!/bin/bash
+
+set -e
+
+# Default Port
+PORT=10000
+
+while true
+do
+    case "${1}" in
+        --port)
+            PORT=$2
+            shift 2
+            ;;
+        --help)
+            echo "Usage: $0 [--port <PORT>] -- [TCPDUMP FILTER]" >&2
+            exit 1
+            ;;
+        --)
+            shift
+            break
+            ;;
+        *)
+            break
+            ;;
+    esac
+done
+
+ARGS="$@"
+
+if [ ! -z "${ARGS}" ]
+then
+    EXTRA_FILTER="and \\\($ARGS\\\)"
+fi
+
+if [ "$EUID" -ne "0" ]
+then
+    echo Warning: You are not running as root. To get root, execute get-root before running this command.
+fi
+
+echo "Listening on port ${PORT} with filter ${ARGS}..."
+echo "You can now set up a port-forward from your local machine."
+echo "Start Wireshark on your local machine with the following command, assuming you have forwarded your local port 10000 the container's port 10000:"
+echo "    nc -v 127.0.0.1 10000 | wireshark -k -i -"
+
+exec socat -U "TCP-LISTEN:${PORT},fork,nodelay,reuseaddr" "SYSTEM:stdbuf -i0 -o0 -e0 tcpdump -nn -i any -s 0 -w - --immediate-mode not port $PORT $EXTRA_FILTER"
+
