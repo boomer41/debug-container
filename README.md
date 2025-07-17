@@ -5,7 +5,7 @@
 If you want to debug an existing Pod, simply attach to it like this:
 
 ```shell
-kubectl debug -it <POD> --image=ghcr.io/boomer41/debug-container --image-pull-policy=Always
+kubectl debug -it -n <NAMESPACE> <POD> --image=ghcr.io/boomer41/debug-container --image-pull-policy=Always
 ```
 
 You are then dropped into a shell - by default `zsh`.
@@ -30,7 +30,7 @@ To dump the traffic, follow those steps:
 1. Ensure you are root. If not, execute `get-root`.
 2. Execute `tcpdump-port`. By default, it listens to port `10000/tcp`.
    If that port is already in use, select another port by using `--port <PORT>`.
-3. In a second shell: Create a Port-Forward to the Pod: `kubectl port-forward pods/<POD> 10001:10000`.
+3. In a second shell: Create a Port-Forward to the Pod: `kubectl port-forward -n <NAMESPACE> pods/<POD> 10001:10000`.
    This opens port `10001/tcp` on your **local machine** and forwards it to the pod's port `10000/tcp`.
    Remember to adjust this command if you had to use a different port in step 2!
 4. In a third shell: Launch Wireshark.
