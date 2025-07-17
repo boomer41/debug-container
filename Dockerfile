@@ -28,14 +28,18 @@ RUN mkdir -p /build/work && \
 FROM base AS final
 
 # Base-Tools:
+#   - bind9-dnsutils
 #   - ca-certificates
 #   - curl
 #   - gdb
+#   - iputils-ping
+#   - mtr
 #   - nano
 #   - netcat-openbsd
 #   - openssl
 #   - stunnel
 #   - sudo
+#   - traceroute
 #   - vim
 #   - wget
 #   - zsh
@@ -48,9 +52,12 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
     --mount=type=tmpfs,target=/var/cache \
     --mount=type=tmpfs,target=/var/log \
     apt-get install --yes \
+        bind9-dnsutils \
         ca-certificates \
         curl \
         gdb \
+        iputils-ping \
+        mtr \
         nano \
         netcat-openbsd \
         openssl \
@@ -58,6 +65,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
         stunnel \
         sudo \
         tcpdump \
+        traceroute \
         vim \
         wget \
         zsh
