@@ -33,6 +33,7 @@ FROM base AS final
 #   - ca-certificates
 #   - curl
 #   - gdb
+#   - htop
 #   - iputils-ping
 #   - mtr
 #   - nano
@@ -58,6 +59,7 @@ RUN --mount=type=tmpfs,target=/var/lib/apt/lists \
         ca-certificates \
         curl \
         gdb \
+        htop \
         iputils-ping \
         mtr \
         nano \
