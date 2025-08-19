@@ -35,6 +35,7 @@ FROM base AS final
 #   - gdb
 #   - htop
 #   - iputils-ping
+#   - jq
 #   - mtr
 #   - nano
 #   - netcat-openbsd
@@ -44,6 +45,7 @@ FROM base AS final
 #   - traceroute
 #   - vim
 #   - wget
+#   - yq
 #   - zsh
 
 # tcpdump-port:
