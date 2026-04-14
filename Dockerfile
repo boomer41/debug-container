@@ -1,11 +1,10 @@
-FROM debian:12 AS base
+FROM debian:13.4@sha256:3352c2e13876c8a5c5873ef20870e1939e73cb9a3c1aeba5e3e72172a85ce9ed AS base
 
 RUN --mount=type=tmpfs,target=/var/lib/apt/lists \
     --mount=type=tmpfs,target=/var/cache \
     --mount=type=tmpfs,target=/var/log \
     apt-get update && \
     apt-get dist-upgrade --yes
-
 
 FROM base AS build-c
 
