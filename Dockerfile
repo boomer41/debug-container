@@ -33,6 +33,7 @@ FROM base AS final
 #   - curl
 #   - gdb
 #   - htop
+#   - iperf3
 #   - iputils-ping
 #   - jq
 #   - mtr
@@ -61,6 +62,7 @@ RUN --mount=type=tmpfs,target=/var/lib/apt/lists \
         curl \
         gdb \
         htop \
+        iperf3 \
         iputils-ping \
         mtr \
         nano \
