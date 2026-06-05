@@ -3,6 +3,7 @@ FROM debian:13.5@sha256:4ae67669760b807c19f23902a3fd7c121a6a70cf2ae709035674b23e
 RUN --mount=type=tmpfs,target=/var/lib/apt/lists \
     --mount=type=tmpfs,target=/var/cache \
     --mount=type=tmpfs,target=/var/log \
+    export REBUILD_CACHE_BUSTER=2026-06-05_1 && \
     apt-get update && \
     apt-get dist-upgrade --yes
 
